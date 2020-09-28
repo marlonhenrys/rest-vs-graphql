@@ -7,9 +7,9 @@
   "author": "Gabriel Nascimento, Lucas Fernandes e Marlon Henrique",
   "license": "MIT",
   "scripts": {
-    "populate": "sequelize db:migrate && sequelize db:seed:all",
-    "start": "node server.js",
-    "dev": "nodemon server.js"
+    "populate": "sequelize db:migrate && node src/scripts/populate",
+    "start": "node server",
+    "dev": "nodemon server"
   },
   "dependencies": {
     "dotenv": "^8.2.0",
