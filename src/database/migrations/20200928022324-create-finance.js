@@ -2,19 +2,34 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('entities', {
+    return queryInterface.createTable('finances', {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true
       },
-      name: {
+      currency_code: {
         type: Sequelize.STRING,
         allowNull: false
       },
-      description: {
+      account_name: {
         type: Sequelize.STRING,
         allowNull: false
+      },
+      currency_name: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
+      currency_symbol: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
+      person_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: { model: 'people', key: 'id' },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE'
       },
       created_at: {
         type: Sequelize.DATE,
@@ -28,6 +43,6 @@ module.exports = {
   },
 
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('entities')
+    return queryInterface.dropTable('finances')
   }
 }

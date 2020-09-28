@@ -8,6 +8,7 @@
   "license": "MIT",
   "scripts": {
     "populate": "sequelize db:migrate && node src/scripts/populate",
+    "truncate": "sequelize db:migrate:undo:all",
     "start": "node server",
     "dev": "nodemon server"
   },
