@@ -16,7 +16,7 @@ class Person extends Model {
         allowNull: false
       },
       birth: {
-        type: DataTypes.DATEONLY,
+        type: DataTypes.STRING,
         allowNull: false
       },
       cpf: {

@@ -1,60 +1,56 @@
 require('../database')
+const moment = require('moment')
+const runGenerator = require('../app/helpers/dataGenerator');
 
 const { Person, Family, Parentage } = require('../app/models')
 const faker = require('faker/locale/pt_BR')
 
 const genres = ['Masculino', 'Feminino', 'Outro']
-const roles1 = ['Avô/Avó', 'Pai/Mãe', 'Tio/Tia', 'Irmão/Irmã', 'Companheiro(a)']
-const roles2 = ['Neto(a)', 'Filho(a)', 'Sobrinho(a)', 'Irmão/Irmã', 'Companheiro(a)']
 
 const randomPosition = limit => Math.floor(Math.random() * limit)
 
-async function createPeople (amount) {
-  const people = []
-
-  for (let index = 0; index < amount; index++) {
-    const genreIndex = randomPosition(3)
-
-    const person = await Person.create({
-      firstName: faker.name.firstName(),
+async function createPeople (people) {
+  people.forEach(async person => {
+    await Person.create({
+      firstName: person.firstName,
       lastName: faker.name.lastName(),
-      genre: genres[genreIndex],
-      birth: faker.date.past(),
+      genre: genres[person.id % 2],
+      birth: moment(faker.date.past(1, new Date())).format('DD-MM'),
       email: faker.internet.email(),
       phone: faker.phone.phoneNumber(),
       jobArea: faker.name.jobArea()
     })
-
-    people.push(person)
-  }
-
-  return people
-}
-
-async function createFamily (person1, person2) {
-  return Family.create({
-    person1_id: person1.id,
-    person2_id: person2.id,
-    country: faker.address.country()
   })
 }
 
-async function createParentage (person1, person2, family) {
-  const roleIndex = randomPosition(4)
+async function createFamily (families) {
+  families.forEach(async family => {
+      await Family.create({
+        person1_id: family.head1,
+        person2_id: family.head2,
+        country: faker.address.country()
+      })
+  })
 
-  await Parentage.create({
-    person1_id: person1.id,
-    person2_id: person2.id,
-    role1: roles1[roleIndex],
-    role2: roles2[roleIndex],
-    family_id: family.id
+}
+
+async function createParentage (parentages) {
+  parentages.forEach(async parentage => {
+      await Parentage.create({
+        person1_id: parentage.person1,
+        person2_id: parentage.person2,
+        role1: parentage.role1,
+        role2: parentage.role2,
+        family_id: parentage.family
+      })
   })
 }
 
 async function main () {
-  const [person1, person2] = await createPeople(2)
-  const family = await createFamily(person1, person2)
-  await createParentage(person1, person2, family)
+  const {people, families, parentages} = runGenerator(10);
+  await createPeople(people)
+  await createFamily(families)
+  await createParentage(parentages)
 }
 
 main()
