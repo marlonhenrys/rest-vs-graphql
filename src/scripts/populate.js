@@ -1,13 +1,11 @@
 require('../database')
-const moment = require('moment')
-const runGenerator = require('../app/helpers/dataGenerator');
 
-const { Person, Family, Parentage } = require('../app/models')
+const moment = require('moment')
 const faker = require('faker/locale/pt_BR')
+const runGenerator = require('../app/helpers/dataGenerator')
+const { Person, Family, Parentage } = require('../app/models')
 
 const genres = ['Masculino', 'Feminino', 'Outro']
-
-const randomPosition = limit => Math.floor(Math.random() * limit)
 
 async function createPeople (people) {
   people.forEach(async person => {
@@ -25,29 +23,28 @@ async function createPeople (people) {
 
 async function createFamily (families) {
   families.forEach(async family => {
-      await Family.create({
-        person1_id: family.head1,
-        person2_id: family.head2,
-        country: faker.address.country()
-      })
+    await Family.create({
+      person1_id: family.head1,
+      person2_id: family.head2,
+      country: faker.address.country()
+    })
   })
-
 }
 
 async function createParentage (parentages) {
   parentages.forEach(async parentage => {
-      await Parentage.create({
-        person1_id: parentage.person1,
-        person2_id: parentage.person2,
-        role1: parentage.role1,
-        role2: parentage.role2,
-        family_id: parentage.family
-      })
+    await Parentage.create({
+      person1_id: parentage.person1,
+      person2_id: parentage.person2,
+      role1: parentage.role1,
+      role2: parentage.role2,
+      family_id: parentage.family
+    })
   })
 }
 
 async function main () {
-  const {people, families, parentages} = runGenerator(10);
+  const { people, families, parentages } = runGenerator(10)
   await createPeople(people)
   await createFamily(families)
   await createParentage(parentages)

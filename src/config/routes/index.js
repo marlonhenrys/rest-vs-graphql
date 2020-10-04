@@ -2,6 +2,6 @@ const { Router } = require('express')
 
 const routes = Router()
 
-routes.use(require('./entity.routes'))
+routes.use(require('./person.routes'))
 
 module.exports = routes
