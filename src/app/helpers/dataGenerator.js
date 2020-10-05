@@ -113,7 +113,7 @@ const getParentage = (people) => {
     partner && parentages.push({
       person1: person.id,
       person2: partner.id,
-      family: person.families.reduce((a, b) => Math.max(a, b)) + 1,
+      family: person.families.reduce((a, b) => Math.max(a, b)),
       role1: roles1[4],
       role2: roles2[4]
     })
@@ -121,7 +121,7 @@ const getParentage = (people) => {
     sibling && parentages.push({
       person1: person.id,
       person2: sibling.id,
-      family: person.parentFamily + 1,
+      family: person.parentFamily,
       role1: roles1[3],
       role2: roles2[3]
     })
@@ -130,7 +130,7 @@ const getParentage = (people) => {
       parentages.push({
         person1: person.id,
         person2: parent.id,
-        family: person.parentFamily + 1,
+        family: person.parentFamily,
         role1: roles2[1],
         role2: roles1[1]
       })
@@ -140,7 +140,7 @@ const getParentage = (people) => {
       parentages.push({
         person1: person.id,
         person2: uncle.id,
-        family: people.find(p => p.id === uncles[index].parents[0]).families.reduce((a, b) => Math.max(a, b)) + 1,
+        family: people.find(p => p.id === uncles[index].parents[0]).families.reduce((a, b) => Math.max(a, b)),
         role1: roles2[2],
         role2: roles1[2]
       })
@@ -150,7 +150,7 @@ const getParentage = (people) => {
       parentages.push({
         person1: person.id,
         person2: grandparent.id,
-        family: grandparent.families.reduce((a, b) => Math.max(a, b)) + 1,
+        family: grandparent.families.reduce((a, b) => Math.max(a, b)),
         role1: roles2[0],
         role2: roles1[0]
       })
@@ -194,6 +194,10 @@ const runGenerator = (quantity) => {
   const families = getFamilies(people.flatMap(person => person))
 
   const parentages = getParentage(people.flatMap(person => person))
+
+  parentages.forEach(parentage => {
+    parentage.family = parentage.family + 1
+  })
 
   return {
     people: people.flatMap(person => person),
