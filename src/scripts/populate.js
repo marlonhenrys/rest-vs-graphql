@@ -8,7 +8,7 @@ const { Person, Family, Parentage } = require('../app/models')
 const genres = ['Masculino', 'Feminino', 'Outro']
 
 async function createPeople (people) {
-  people.forEach(async person => {
+  for (const person of people) {
     await Person.create({
       firstName: person.firstName,
       lastName: faker.name.lastName(),
@@ -18,32 +18,37 @@ async function createPeople (people) {
       phone: faker.phone.phoneNumber(),
       jobArea: faker.name.jobArea()
     })
-  })
+  }
 }
 
 async function createFamily (families) {
-  families.forEach(async family => {
+  for (const family of families) {
     await Family.create({
-      person1_id: family.head1,
-      person2_id: family.head2,
+      person1_id: family.head1 || null,
+      person2_id: family.head2 || null,
       country: faker.address.country()
     })
-  })
+  }
 }
 
 async function createParentage (parentages) {
-  parentages.forEach(async parentage => {
-    await Parentage.create({
-      person1_id: parentage.person1,
-      person2_id: parentage.person2,
-      role1: parentage.role1,
-      role2: parentage.role2,
-      family_id: parentage.family
-    })
-  })
+  for (const parentage of parentages) {
+    try {
+      await Parentage.create({
+        person1_id: parentage.person1,
+        person2_id: parentage.person2,
+        role1: parentage.role1,
+        role2: parentage.role2,
+        family_id: parentage.family
+      })
+    } catch (error) {
+      console.log(error.message, parentage)
+    }
+  }
 }
 
 async function main () {
+  console.log('Criando registros...')
   const { people, families, parentages } = runGenerator(10)
   await createPeople(people)
   await createFamily(families)
@@ -52,4 +57,4 @@ async function main () {
 
 main()
   .then(() => console.log('Registros criados com sucesso!'))
-  .catch(error => console.log('Ops! Ocorreu um erro...', error))
+  .catch(error => console.log('Ops! Ocorreu um erro.', error))
