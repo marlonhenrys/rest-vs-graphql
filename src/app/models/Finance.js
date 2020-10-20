@@ -7,10 +7,6 @@ class Finance extends Model {
         type: DataTypes.STRING,
         allowNull: false
       },
-      account_name: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
       currency_name: {
         type: DataTypes.STRING,
         allowNull: false

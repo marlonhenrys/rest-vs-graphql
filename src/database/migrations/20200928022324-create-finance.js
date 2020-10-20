@@ -12,10 +12,6 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false
       },
-      account_name: {
-        type: Sequelize.STRING,
-        allowNull: false
-      },
       currency_name: {
         type: Sequelize.STRING,
         allowNull: false
