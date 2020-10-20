@@ -10,15 +10,18 @@
     "populate": "sequelize db:migrate && node src/scripts/populate",
     "truncate": "sequelize db:migrate:undo:all",
     "start": "node server",
+    "test": "node src/scripts/tests",
     "dev": "nodemon server"
   },
   "dependencies": {
+    "axios": "^0.20.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-graphql": "^0.11.0",
     "graphql": "^15.3.0",
     "moment": "^2.29.0",
     "morgan": "^1.10.0",
+    "objects-to-csv": "^1.3.6",
     "sequelize": "^6.3.4",
     "sqlite3": "^5.0.0"
   },
