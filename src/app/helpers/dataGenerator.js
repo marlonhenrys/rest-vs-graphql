@@ -95,7 +95,7 @@ const getFamilies = (people) => {
     return validPeople.filter(person => person.families.reduce((a, b) => Math.max(a, b)) === family)
   })
   return detailedFamilies.map((family, index) => ({
-    id: index + 1,
+    id: index,
     head1: family[0] ? family[0].id : undefined,
     head2: family[1] ? family[1].id : undefined
   }))
@@ -187,17 +187,9 @@ const runGenerator = (quantity) => {
     people.push(generateChildren(mariages))
   }
 
-  people.forEach(person => {
-    person.id = person.id + 1
-  })
-
   const families = getFamilies(people.flatMap(person => person))
 
   const parentages = getParentage(people.flatMap(person => person))
-
-  parentages.forEach(parentage => {
-    parentage.family = parentage.family + 1
-  })
 
   return {
     people: people.flatMap(person => person),

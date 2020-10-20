@@ -24,8 +24,8 @@ async function createPeople (people) {
 async function createFamily (families) {
   for (const family of families) {
     await Family.create({
-      person1_id: family.head1 || null,
-      person2_id: family.head2 || null,
+      person1_id: isNaN(family.head1) ? null : family.head1 + 1,
+      person2_id: isNaN(family.head2) ? null : family.head2 + 1,
       country: faker.address.country()
     })
   }
@@ -35,11 +35,11 @@ async function createParentage (parentages) {
   for (const parentage of parentages) {
     try {
       await Parentage.create({
-        person1_id: parentage.person1,
-        person2_id: parentage.person2,
+        person1_id: parentage.person1 + 1,
+        person2_id: parentage.person2 + 1,
         role1: parentage.role1,
         role2: parentage.role2,
-        family_id: parentage.family
+        family_id: parentage.family + 1
       })
     } catch (error) {
       console.log(error.message, parentage)
