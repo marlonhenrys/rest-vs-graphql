@@ -41,13 +41,13 @@ class Person extends Model {
   }
 
   static associate (models) {
-    this.hasOne(models.Family, { foreignKey: 'person1_id', as: 'family1' })
-    this.hasOne(models.Family, { foreignKey: 'person2_id', as: 'family2' })
+    this.hasOne(models.Family, { foreignKey: 'person1_id', as: 'familyHead1' })
+    this.hasOne(models.Family, { foreignKey: 'person2_id', as: 'familyHead2' })
     this.belongsTo(models.Address, { foreignKey: 'address_id', as: 'address' })
     this.hasMany(models.Vehicle, { foreignKey: 'person_id', as: 'vehicles' })
     this.hasMany(models.Finance, { foreignKey: 'person_id', as: 'finances' })
-    this.belongsToMany(models.Person, { foreignKey: 'person1_id', through: models.Parentage, as: 'parentages2' })
-    this.belongsToMany(models.Person, { foreignKey: 'person2_id', through: models.Parentage, as: 'parentages1' })
+    this.belongsToMany(models.Person, { foreignKey: 'person1_id', through: models.Parentage, as: 'parentagesAs2' })
+    this.belongsToMany(models.Person, { foreignKey: 'person2_id', through: models.Parentage, as: 'parentagesAs1' })
   }
 }
 

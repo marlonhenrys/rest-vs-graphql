@@ -15,15 +15,15 @@ class Address extends Model {
         type: DataTypes.STRING,
         allowNull: false
       },
-      zip_code: {
+      zipCode: {
         type: DataTypes.STRING,
         allowNull: false
       },
-      street_name: {
+      streetName: {
         type: DataTypes.STRING,
         allowNull: true
       },
-      time_zone: {
+      timeZone: {
         type: DataTypes.STRING,
         allowNull: true
       },

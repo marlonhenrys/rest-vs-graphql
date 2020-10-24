@@ -10,6 +10,16 @@ module.exports = {
     email: String
     phone: String
     jobArea: String
+    headFamily: Family
+    address: Address
+    vehicles(limit: Int): Vehicles
+    vehicle(id: ID!): Vehicle
+    finances(limit: Int): Finances
+    finance(id: ID!): Finance
+    parentages(limit: Int): Parentages
+    parentage(id: ID!): Parentage
+    createdAt: String
+    updatedAt: String
   }
   type People {
     count: Int

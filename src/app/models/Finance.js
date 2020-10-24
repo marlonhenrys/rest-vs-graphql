@@ -3,15 +3,15 @@ const { Model, DataTypes } = require('sequelize')
 class Finance extends Model {
   static init (sequelize) {
     super.init({
-      currency_code: {
+      currencyCode: {
         type: DataTypes.STRING,
         allowNull: false
       },
-      currency_name: {
+      currencyName: {
         type: DataTypes.STRING,
         allowNull: false
       },
-      currency_symbol: {
+      currencySymbol: {
         type: DataTypes.STRING,
         allowNull: false
       }

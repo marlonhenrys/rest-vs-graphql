@@ -7,8 +7,8 @@ const { Person, Family, Parentage, Address, Finance, Vehicle } = require('../app
 
 const genres = ['Masculino', 'Feminino', 'Outro']
 
-async function createAddress(quantity) {
-  for(let i = 0; i < quantity; i++) {
+async function createAddress (quantity) {
+  for (let i = 0; i < quantity; i++) {
     await Address.create({
       country: faker.address.country(),
       state: faker.address.state(),
@@ -23,7 +23,7 @@ async function createAddress(quantity) {
 }
 
 async function createPeople (people) {
-  let addressId = 1;
+  let addressId = 1
   for (const person of people) {
     await Person.create({
       firstName: person.firstName,
@@ -35,15 +35,15 @@ async function createPeople (people) {
       jobArea: faker.name.jobArea(),
       address_id: addressId,
       cpf: Math.random() * (99999999999 - 10000000000) + 10000000000
-      
+
     })
-    addressId++;
+    addressId++
   }
 }
 
 async function createVehicle (quantity) {
-  let personId = 1;
-  for(let i = 0; i < quantity; i++) {
+  let personId = 1
+  for (let i = 0; i < quantity; i++) {
     await Vehicle.create({
       model: faker.vehicle.model(),
       type: faker.vehicle.type(),
@@ -52,20 +52,20 @@ async function createVehicle (quantity) {
       manufacturer: faker.vehicle.manufacturer(),
       person_id: personId
     })
-    personId++;
+    personId++
   }
 }
 
 async function createFinance (quantity) {
-  let personId = 1;
-  for(let i = 0; i < quantity; i++) {
+  let personId = 1
+  for (let i = 0; i < quantity; i++) {
     await Finance.create({
       currency_code: faker.finance.currencyCode(),
       currency_name: faker.finance.currencyName(),
       currency_symbol: faker.finance.currencySymbol(),
       person_id: personId
     })
-    personId++;
+    personId++
   }
 }
 
@@ -98,10 +98,10 @@ async function createParentage (parentages) {
 async function main (quantity) {
   console.log('Criando registros...')
   const { people, families, parentages } = runGenerator(quantity)
-  await createAddress(quantity*10)
+  await createAddress(quantity * 10)
   await createPeople(people)
-  await createVehicle(quantity*10)
-  await createFinance(quantity*10)
+  await createVehicle(quantity * 10)
+  await createFinance(quantity * 10)
   await createFamily(families)
   await createParentage(parentages)
 }

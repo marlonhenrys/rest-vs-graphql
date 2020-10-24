@@ -3,6 +3,11 @@ const { Model, DataTypes } = require('sequelize')
 class Parentage extends Model {
   static init (sequelize) {
     super.init({
+      id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+      },
       role1: {
         type: DataTypes.ENUM([
           'Avô/Avó',
