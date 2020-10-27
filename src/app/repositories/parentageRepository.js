@@ -72,7 +72,13 @@ module.exports = {
     include: [
       { association: 'person1' },
       { association: 'person2' },
-      { association: 'family' }
+      {
+        association: 'family',
+        include: [
+          { association: 'head1' },
+          { association: 'head2' },
+        ]
+      }
     ]
   }),
 
