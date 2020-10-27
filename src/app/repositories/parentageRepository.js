@@ -4,30 +4,44 @@ const { Op } = require('sequelize')
 module.exports = {
   findOneByPerson: (personId, id) => Parentage.findOne({
     where: {
-      id,
-      [Op.or]: {
-        person1_id: personId,
-        person2_id: personId
+      [Op.and]: {
+        id,
+        [Op.or]: {
+          person1_id: personId,
+          person2_id: personId
+        }
       }
     }
   }),
 
-  findAllByPerson: (personId, limit) => Parentage.findAndCountAll({
+  findAllByPerson: (personId, limit, role = '') => Parentage.findAndCountAll({
     limit,
     where: {
-      [Op.or]: {
-        person1_id: personId,
-        person2_id: personId
-      }
+      [Op.and]: [
+        {
+          [Op.or]: {
+            person1_id: personId,
+            person2_id: personId
+          }
+        },
+        {
+          [Op.or]: {
+            role1: { [Op.like]: '%' + role + '%' },
+            role2: { [Op.like]: '%' + role + '%' }
+          }
+        }
+      ]
     }
   }),
 
   findOneByPersonComplete: (personId, id) => Parentage.findOne({
     where: {
-      id,
-      [Op.or]: {
-        person1_id: personId,
-        person2_id: personId
+      [Op.and]: {
+        id,
+        [Op.or]: {
+          person1_id: personId,
+          person2_id: personId
+        }
       }
     },
     include: [
@@ -37,13 +51,23 @@ module.exports = {
     ]
   }),
 
-  findAllByPersonComplete: (personId, limit) => Parentage.findAndCountAll({
+  findAllByPersonComplete: (personId, limit, role = '') => Parentage.findAndCountAll({
     limit,
     where: {
-      [Op.or]: {
-        person1_id: personId,
-        person2_id: personId
-      }
+      [Op.and]: [
+        {
+          [Op.or]: {
+            person1_id: personId,
+            person2_id: personId
+          }
+        },
+        {
+          [Op.or]: {
+            role1: { [Op.like]: '%' + role + '%' },
+            role2: { [Op.like]: '%' + role + '%' }
+          }
+        }
+      ]
     },
     include: [
       { association: 'person1' },
@@ -59,10 +83,20 @@ module.exports = {
     }
   }),
 
-  findAllByFamily: (familyId, limit) => Parentage.findAndCountAll({
+  findAllByFamily: (familyId, limit, role = '') => Parentage.findAndCountAll({
     limit,
     where: {
-      family_id: familyId
+      [Op.and]: [
+        {
+          family_id: familyId
+        },
+        {
+          [Op.or]: {
+            role1: { [Op.like]: '%' + role + '%' },
+            role2: { [Op.like]: '%' + role + '%' }
+          }
+        }
+      ]
     }
   }),
 
@@ -78,10 +112,20 @@ module.exports = {
     ]
   }),
 
-  findAllByFamilyComplete: (familyId, limit) => Parentage.findAll({
+  findAllByFamilyComplete: (familyId, limit, role = '') => Parentage.findAll({
     limit,
     where: {
-      family_id: familyId
+      [Op.and]: [
+        {
+          family_id: familyId
+        },
+        {
+          [Op.or]: {
+            role1: { [Op.like]: '%' + role + '%' },
+            role2: { [Op.like]: '%' + role + '%' }
+          }
+        }
+      ]
     },
     include: [
       { association: 'person1' },

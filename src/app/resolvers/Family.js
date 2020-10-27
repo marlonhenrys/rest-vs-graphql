@@ -13,8 +13,8 @@ class Family {
     return personRepository.findOne(this.person2_id)
   }
 
-  parentages ({ limit }) {
-    return parentageRepository.findAllByFamilyComplete(this.id, limit)
+  parentages ({ limit, role }) {
+    return parentageRepository.findAllByFamilyComplete(this.id, limit, role)
   }
 
   parentage ({ id }) {

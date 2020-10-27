@@ -16,7 +16,7 @@ module.exports = {
     vehicle(id: ID!): Vehicle
     finances(limit: Int): Finances
     finance(id: ID!): Finance
-    parentages(limit: Int): Parentages
+    parentages(limit: Int, role: String): Parentages
     parentage(id: ID!): Parentage
     createdAt: String
     updatedAt: String

@@ -31,8 +31,8 @@ class Person {
     return financeRepository.findOneByPerson(this.id, id)
   }
 
-  parentages ({ limit }) {
-    return parentageRepository.findAllByPersonComplete(this.id, limit)
+  parentages ({ limit, role }) {
+    return parentageRepository.findAllByPersonComplete(this.id, limit, role)
   }
 
   parentage ({ id }) {

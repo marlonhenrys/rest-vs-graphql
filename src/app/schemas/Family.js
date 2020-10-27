@@ -5,7 +5,8 @@ module.exports = {
     country: String
     head1: Person
     head2: Person
-    parentages: [Parentage]
+    parentages(limit: Int, role: String): [Parentage]
+    parentage(id: ID!): Parentage
     createdAt: String
     updatedAt: String
   }
